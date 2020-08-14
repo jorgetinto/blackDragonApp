@@ -1,12 +1,14 @@
-import 'package:black_dragon_app/src/data/bloc/validators.dart';
+import 'package:black_dragon_app/src/utils/widget/validators_login_form.dart';
+import 'package:black_dragon_app/src/data/providers/usuario_provider.dart';
 
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
-class LoginBloc with Validators {
+class LoginBloc with ValidatorsLoginForm {
 
   final _emailController  = BehaviorSubject<String>();
   final _passController   = BehaviorSubject<String>();
+  final _usuarioProvider  = UsuarioProvider();
 
   // Recuperar los datos del stream
   Stream<String> get emailStream      => _emailController.stream.transform(validarEmail);
@@ -21,6 +23,27 @@ class LoginBloc with Validators {
   String get email    => _emailController.value;
   String get password => _passController.value;
 
+  Future<Map<String, dynamic>> login(String email, String password) async {
+    final resultado = await _usuarioProvider.login(email, password);
+    changeEmail('');
+    changePassword('');
+    dispose();
+    return resultado;
+  }
+
+  Future<Map<String, dynamic>> registerWithEmailAnfPassword(String email, String password) async {
+    final resultado = await _usuarioProvider.registerWithEmailAnfPassword(email, password);
+    changeEmail('');
+    changePassword('');
+    dispose();
+    return resultado;
+  }
+
+  Future<Map<String, dynamic>> signOut() async {
+    final resultado = await _usuarioProvider.signOut();
+    dispose();
+    return resultado;
+  }
 
   dispose() {
     _emailController?.close();

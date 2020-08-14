@@ -8,7 +8,7 @@ class UsuarioProvider {
   final String _firebaseToken = 'AIzaSyB_Kc59keGuSPh35ck9oNV8OMrbbHCP3oQ';
   final _prefs = new PreferenciasUsuario();
 
-   Future<Map<String, dynamic>> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password) async {
     
     final authData = {
       'email'   : email,

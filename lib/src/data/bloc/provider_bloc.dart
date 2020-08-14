@@ -1,10 +1,12 @@
+import 'package:black_dragon_app/src/data/bloc/estudiante_bloc.dart';
 import 'package:black_dragon_app/src/data/bloc/login_bloc.dart';
 
 import 'package:flutter/material.dart';
 
 class ProviderBloc extends InheritedWidget {
 
-  final loginBloc = new LoginBloc();
+  final loginBloc       = new LoginBloc();
+  final _estudianteBloc = new EstudianteBloc();
 
   static ProviderBloc _instancia;
 
@@ -22,5 +24,9 @@ class ProviderBloc extends InheritedWidget {
 
   static LoginBloc of ( BuildContext context ){
    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>().loginBloc;
+  }
+
+  static EstudianteBloc estudianteBloc ( BuildContext context ){
+    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>()._estudianteBloc;
   }
 }

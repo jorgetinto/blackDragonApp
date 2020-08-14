@@ -1,6 +1,5 @@
 import 'package:black_dragon_app/src/data/bloc/login_bloc.dart';
 import 'package:black_dragon_app/src/data/bloc/provider_bloc.dart';
-import 'package:black_dragon_app/src/data/providers/usuario_provider.dart';
 import 'package:black_dragon_app/src/pages/authenticate/register_page.dart';
 import 'package:black_dragon_app/src/pages/home_page.dart';
 import 'package:black_dragon_app/src/utils/routes/routes.dart';
@@ -11,9 +10,6 @@ import 'package:flutter/material.dart';
 
 
 class LoginPage extends StatelessWidget {
-
-  // final usuarioProvider = new AuthService();
-  final usuarioProvider = new UsuarioProvider();
 
   Widget _crearFondo(BuildContext context) {
 
@@ -163,9 +159,8 @@ class LoginPage extends StatelessWidget {
   }
 
   _login(LoginBloc bloc, BuildContext context) async {
-    
-    Map info = await usuarioProvider.login(bloc.email, bloc.password);
 
+    Map info = await bloc.login(bloc.email, bloc.password);
     if (info['ok']) {
       Navigator.pushReplacement(context, SlideRightSinOpacidadRoute(widget: HomePage()));
     } else {

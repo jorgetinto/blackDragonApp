@@ -1,4 +1,4 @@
-import 'package:black_dragon_app/src/data/providers/estudiante_provider.dart';
+import 'package:black_dragon_app/src/data/bloc/provider_bloc.dart';
 import 'package:black_dragon_app/src/models/estudiante_model.dart';
 import 'package:black_dragon_app/src/pages/instructor_page.dart';
 import 'package:black_dragon_app/src/utils/routes/routes.dart' as router;
@@ -21,9 +21,10 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     
-    final estudianteModel = new EstudiantesProvider().buscarEstudiante;
+    final estudianteBloc = ProviderBloc.estudianteBloc(context);
+    estudianteBloc.buscarEstudiante();
 
     ListTile _buildExperienceRow({ String company, String position, String duration, IconData icono, Widget page}) {
 
@@ -292,11 +293,11 @@ class _HomePageState extends State<HomePage> {
         title: Text('Credencial'),
         backgroundColor: Colors.black87,
       ),
-      drawer: MenuPrincipal(model: estudianteModel),
+      drawer: MenuPrincipal(model: estudianteBloc.estudianteStream),
 
       body: SingleChildScrollView(
-        child: FutureBuilder<EstudianteModel>(
-          future: estudianteModel,
+        child: StreamBuilder<EstudianteModel>(
+          stream: estudianteBloc.estudianteStream,
             builder: (context, snapshot) {
 
               if (snapshot.hasData) {

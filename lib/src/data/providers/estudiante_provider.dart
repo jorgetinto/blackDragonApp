@@ -10,12 +10,12 @@ class EstudiantesProvider {
   final String _url = 'https://blackdragons.firebaseio.com/';
   final _prefs = new PreferenciasUsuario();
 
-  Future<EstudianteModel>  _buscarEstudiante()  async {
+  Future<EstudianteModel>  buscarEstudiante()  async {
     final url = '$_url/estudiante/${_prefs.uid}.json?auth=${_prefs.token}';
     final resp = await http.get(url);
     final prodTemp = estudianteModelFromJson(resp.body.toString());
     return prodTemp;
   }  
 
-  Future<EstudianteModel> get buscarEstudiante => this._buscarEstudiante();
+  //Future<EstudianteModel> get buscarEstudiante => this._buscarEstudiante();
 }
