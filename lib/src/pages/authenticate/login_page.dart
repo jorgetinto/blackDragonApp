@@ -9,7 +9,14 @@ import 'package:black_dragon_app/src/utils/widget/Header_widget.dart';
 import 'package:flutter/material.dart';
 
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Widget _crearFondo(BuildContext context) {
 
@@ -160,6 +167,17 @@ class LoginPage extends StatelessWidget {
 
   _login(LoginBloc bloc, BuildContext context) async {
 
+    _scaffoldKey.currentState.showSnackBar(
+      new SnackBar(duration: new Duration(seconds: 4), content:
+        new Row(
+          children: <Widget>[
+            new CircularProgressIndicator(),
+            new Text("    Iniciando Sesión...")
+          ],
+        ),
+      )
+    );
+
     Map info = await bloc.login(bloc.email, bloc.password);
     if (info['ok']) {
       Navigator.pushReplacement(context, SlideRightSinOpacidadRoute(widget: HomePage()));
@@ -170,7 +188,10 @@ class LoginPage extends StatelessWidget {
 
   @override
  Widget build(BuildContext context) {
+   
+
     return Scaffold(
+    key: _scaffoldKey,
     body: Stack(
       children: <Widget>[
         _crearFondo(context),

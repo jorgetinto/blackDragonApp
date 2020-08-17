@@ -1,3 +1,4 @@
+import 'package:black_dragon_app/src/data/bloc/changePassword_bloc.dart';
 import 'package:black_dragon_app/src/data/bloc/estudiante_bloc.dart';
 import 'package:black_dragon_app/src/data/bloc/login_bloc.dart';
 
@@ -7,6 +8,7 @@ class ProviderBloc extends InheritedWidget {
 
   final loginBloc       = new LoginBloc();
   final _estudianteBloc = new EstudianteBloc();
+  final _cambiarPassBloc = new ChangePasswordBloc();
 
   static ProviderBloc _instancia;
 
@@ -28,5 +30,9 @@ class ProviderBloc extends InheritedWidget {
 
   static EstudianteBloc estudianteBloc ( BuildContext context ){
     return context.dependOnInheritedWidgetOfExactType<ProviderBloc>()._estudianteBloc;
+  }
+
+  static ChangePasswordBloc cambiarPassBloc ( BuildContext context ){
+    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>()._cambiarPassBloc;
   }
 }

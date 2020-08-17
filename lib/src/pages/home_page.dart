@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
 
               _buildExperienceRow(
                   company: "Forma de Pago",
-                  position: "Efectivo",
+                  position: "${snapshot.data.metodoPago.nombre}",
                   duration: "",
                   icono: FontAwesomeIcons.moneyBill,
                ), 
@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 5.0),
 
               _buildExperienceRow(
-                  company: "Sin información",
+                  company: "${snapshot.data.infoMedica.nombre}",
                   position: "",
                   duration: "",
                   icono: FontAwesomeIcons.vial,
@@ -243,11 +243,9 @@ class _HomePageState extends State<HomePage> {
             Container(              
                   margin: const EdgeInsets.all(16.0),
                   padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(color: Colors.grey.shade200),
-                
-                  child: Text(
-                      "PLaboris deserunt cupidatat nostrud quis elit in Lorem veniam enim mollit sit duis tempor in. Nulla laboris ex anim ex aliqua ex elit laboris excepteur cillum occaecat nisi. Sit proident sunt labore minim nulla sunt reprehenderit ea dolore non aute.",
-                      textAlign: TextAlign.justify),
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: Colors.grey.shade200),                
+                  child: Text(snapshot.data.motivacion, textAlign: TextAlign.justify),
                 ),
           ],
         ),

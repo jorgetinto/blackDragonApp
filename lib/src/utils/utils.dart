@@ -72,8 +72,25 @@ import 'package:url_launcher/url_launcher.dart';
                       )
                     ],
         ),
+        
+        _iconoEditar(tipoFoto),
       ],
     );
+  }
+
+  Column _iconoEditar(bool tipoFoto) {
+    return (!tipoFoto) ? Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [ 
+          SizedBox(height: 30.0,),
+          IconButton(
+              icon: FaIcon(FontAwesomeIcons.edit, size: 20.0, color: Colors.black,),
+              onPressed: () {
+              
+              },
+            ),
+        ],
+      ): Column();
   }
 
   Future<void> launchURL(String url) async {
