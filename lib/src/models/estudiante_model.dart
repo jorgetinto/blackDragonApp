@@ -9,7 +9,7 @@ class EstudianteModel {
         this.apellidos,
         this.correo,
         this.dojang,
-        this.edad,
+        this.fechaNacimiento,
         this.fono,
         this.grado,
         this.intructor,
@@ -25,7 +25,7 @@ class EstudianteModel {
     String apellidos;
     String correo;
     Dojang dojang;
-    int edad;
+    String fechaNacimiento;
     String fono;
     Grado grado;
     Intructor intructor;
@@ -41,7 +41,7 @@ class EstudianteModel {
         apellidos: json["apellidos"],
         correo: json["correo"],
         dojang: Dojang.fromJson(json["dojang"]),
-        edad: json["edad"],
+        fechaNacimiento: json["fechaNacimiento"],
         fono: json["fono"],
         grado: Grado.fromJson(json["grado"]),
         intructor: Intructor.fromJson(json["intructor"]),
@@ -58,7 +58,7 @@ class EstudianteModel {
         "apellidos": apellidos,
         "correo": correo,
         "dojang": dojang.toJson(),
-        "edad": edad,
+        "fechaNacimiento": fechaNacimiento,
         "fono": fono,
         "grado": grado.toJson(),
         "intructor": intructor.toJson(),

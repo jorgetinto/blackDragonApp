@@ -50,7 +50,7 @@ class _MenuPrincipalState extends State<MenuPrincipal> {
                       ),
                     ),
                     SizedBox(height: 20,),
-                    utils.buildHeader(snapshot, false),
+                    utils.buildHeader(context,snapshot, false),
                     utils.division(),
                     Expanded(
                       child: _ListOpciones()

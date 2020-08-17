@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Icon(Icons.star, color: Color(0xffffdd00)),
                   Text('Edad:', style: TextStyle(fontWeight: FontWeight.bold),),
-                  Text('${snapshot.data.edad}'),
+                  Text(utils.calculateAge('${snapshot.data.fechaNacimiento}')),
                 ],
               ),
             ),
@@ -304,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                       children: <Widget>[            
                           _crearImagen(snapshot),
                           SizedBox(height: 10.0,),
-                          utils.buildHeader(snapshot, true),
+                          utils.buildHeader(context,snapshot, true),
                           utils.division(),
                           _iconoRanking(snapshot),
                           utils.division(),

@@ -1,7 +1,10 @@
 import 'package:black_dragon_app/src/models/estudiante_model.dart';
+import 'package:black_dragon_app/src/pages/editarEstudiante_page.dart';
+import 'package:black_dragon_app/src/utils/routes/routes.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -37,7 +40,7 @@ import 'package:url_launcher/url_launcher.dart';
     );
   }
 
-  Widget buildHeader(AsyncSnapshot<EstudianteModel> snapshot, bool tipoFoto){
+  Widget buildHeader(BuildContext context, AsyncSnapshot<EstudianteModel> snapshot, bool tipoFoto){
 
   return Row(
     children: [
@@ -73,12 +76,12 @@ import 'package:url_launcher/url_launcher.dart';
                     ],
         ),
         
-        _iconoEditar(tipoFoto),
+        _iconoEditar(tipoFoto, context),
       ],
     );
   }
 
-  Column _iconoEditar(bool tipoFoto) {
+  Column _iconoEditar(bool tipoFoto, BuildContext context) {
     return (!tipoFoto) ? Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [ 
@@ -86,7 +89,7 @@ import 'package:url_launcher/url_launcher.dart';
           IconButton(
               icon: FaIcon(FontAwesomeIcons.edit, size: 20.0, color: Colors.black,),
               onPressed: () {
-              
+                Navigator.push(context, SlideRightSinOpacidadRoute(widget: EditarEstudiantePage()));              
               },
             ),
         ],
@@ -105,6 +108,24 @@ import 'package:url_launcher/url_launcher.dart';
     Toast.show( msg, context, duration: 2, gravity: Toast.BOTTOM);
   }
 
+  calculateAge(String strDt) {
+    var birth = Jiffy(strDt, "dd/MM/yyyy").format("yyyy-MM-dd"); // 2019-08-18
+      DateTime birthDate = DateTime.parse(birth);
+      DateTime currentDate = DateTime.now();
+      int age = currentDate.year - birthDate.year;
+      int month1 = currentDate.month;
+      int month2 = birthDate.month;
 
+      if (month2 > month1) {
+        age--;
+      } else if (month1 == month2) {
+        int day1 = currentDate.day;
+        int day2 = birthDate.day;
+        if (day2 > day1) {
+          age--;
+        }
+      }
+      return age.toString();
+  }
 
 
