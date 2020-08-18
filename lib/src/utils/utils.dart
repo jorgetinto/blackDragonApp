@@ -1,6 +1,5 @@
 import 'package:black_dragon_app/src/models/estudiante_model.dart';
 import 'package:black_dragon_app/src/pages/editarEstudiante_page.dart';
-import 'package:black_dragon_app/src/utils/routes/routes.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -76,12 +75,12 @@ import 'package:url_launcher/url_launcher.dart';
                     ],
         ),
         
-        _iconoEditar(tipoFoto, context),
+        _iconoEditar(tipoFoto, context, snapshot),
       ],
     );
   }
 
-  Column _iconoEditar(bool tipoFoto, BuildContext context) {
+  Column _iconoEditar(bool tipoFoto, BuildContext context, AsyncSnapshot<EstudianteModel> snapshot) {
     return (!tipoFoto) ? Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [ 
@@ -89,7 +88,15 @@ import 'package:url_launcher/url_launcher.dart';
           IconButton(
               icon: FaIcon(FontAwesomeIcons.edit, size: 20.0, color: Colors.black,),
               onPressed: () {
-                Navigator.push(context, SlideRightSinOpacidadRoute(widget: EditarEstudiantePage()));              
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditarEstudiantePage(),
+                    settings: RouteSettings(
+                      arguments: snapshot.data,
+                    ),
+                  ),
+                );      
               },
             ),
         ],

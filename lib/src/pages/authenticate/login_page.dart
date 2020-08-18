@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
       )
     );
 
-    Map info = await bloc.login(bloc.email, bloc.password);
+    Map info = await bloc.login(bloc.email.trim(), bloc.password.trim());
     if (info['ok']) {
       Navigator.pushReplacement(context, SlideRightSinOpacidadRoute(widget: HomePage()));
     } else {
@@ -187,8 +187,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
- Widget build(BuildContext context) {
-   
+ Widget build(BuildContext context) {  
 
     return Scaffold(
     key: _scaffoldKey,
