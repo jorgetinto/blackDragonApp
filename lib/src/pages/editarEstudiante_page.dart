@@ -5,8 +5,12 @@ import 'package:black_dragon_app/src/data/bloc/provider_bloc.dart';
 import 'package:black_dragon_app/src/models/estudiante_model.dart';
 import 'package:black_dragon_app/src/pages/home_page.dart';
 import 'package:black_dragon_app/src/utils/routes/routes.dart';
+import 'package:black_dragon_app/src/utils/widget/RutHelper_widget.dart';
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 
 
 class EditarEstudiantePage extends StatefulWidget {
@@ -21,6 +25,7 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
   EstudianteModel estudianteModel = new EstudianteModel();
   final formKey                   = GlobalKey<FormState>();
   final scaffoldKey               = GlobalKey<ScaffoldState>();
+  
   
   @override
   Widget build(BuildContext context) {
@@ -49,6 +54,8 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
                   _inputApellido(),
                   _inputRut(),
                   _inputFechaNacimiento(),
+                  _inputMotivacion(),
+                  _inputInformacionMedica(),
                   _crearBoton(),
                 ],
               )
@@ -125,25 +132,55 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
       ),
       onSaved: (value) => estudianteModel.rut = value,
       validator: (value){
-        if (value == null) {
+
+        RutHelper rutHelp = new RutHelper();
+
+        if (value.isEmpty || value == null) {
           return 'Campo requerido';
         } else {
-          return null;
+
+          if (rutHelp.check(value)){
+            return null;
+          } else {
+            return 'Rut Invalido';
+          }          
         }
       },
     );
   }
 
   Widget _inputFechaNacimiento() {
+
+      var birth = Jiffy(estudianteModel.fechaNacimiento, "dd/MM/yyyy").format("yyyy-MM-dd"); // 2019-08-18
+      DateTime selectedDate = DateTime.parse(birth);
+
+      return DateTimeField(
+            label: 'Fecha de nacimiento',  
+            mode: DateFieldPickerMode.date,
+            dateFormat: DateFormat("dd/MM/yyyy"),            
+            selectedDate: selectedDate,
+            onDateSelected: (DateTime date) {
+              setState(() {
+                estudianteModel.fechaNacimiento = Jiffy(date.toString()).format("dd/MM/yyyy");
+            });
+          },
+        lastDate: DateTime(2020),
+      );
+  }
+
+  Widget _inputMotivacion() {
     return TextFormField(
-      initialValue: estudianteModel.fechaNacimiento,
+      initialValue: estudianteModel.motivacion,
       textCapitalization: TextCapitalization.sentences,
+      keyboardType: TextInputType.multiline,
+      maxLines: 4,
+      maxLength: 500,
       decoration: InputDecoration(
-        labelText: 'Fecha Nacimiento'
+        labelText: '¿Cual es tu motivación por entrenar?'
       ),
-      onSaved: (value) => estudianteModel.fechaNacimiento = value,
+      onSaved: (value) => estudianteModel.motivacion = value,
       validator: (value){
-        if (value == null) {
+        if (value.isEmpty || value == null) {
           return 'Campo requerido';
         } else {
           return null;
@@ -152,7 +189,26 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
     );
   }
 
-
+  Widget _inputInformacionMedica() {
+    return TextFormField(
+      initialValue: estudianteModel.infoMedica.nombre,
+      textCapitalization: TextCapitalization.sentences,
+      keyboardType: TextInputType.multiline,
+      maxLines: 4,
+      maxLength: 500,
+      decoration: InputDecoration(
+        labelText: 'Información médica'
+      ),
+      onSaved: (value) => estudianteModel.infoMedica.nombre = value,
+      validator: (value){
+        if (value.isEmpty || value == null) {
+          return 'Campo requerido';
+        } else {
+          return null;
+        }
+      },
+    );
+  }
 
   Widget _mostrarFoto() {
 
