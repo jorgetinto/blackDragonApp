@@ -1,6 +1,8 @@
-import 'package:black_dragon_app/src/pages/cambiarPassword_page.dart';
-import 'package:black_dragon_app/src/pages/home_page.dart';
-import 'package:black_dragon_app/src/pages/instructor_page.dart';
+
+import 'package:black_dragon_app/src/ui/pages/cambiarPassword_page.dart';
+import 'package:black_dragon_app/src/ui/pages/contactos_page.dart';
+import 'package:black_dragon_app/src/ui/pages/home_page.dart';
+import 'package:black_dragon_app/src/ui/pages/instructor_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
   final pageRoutes = <_Route>[
       _Route(FontAwesomeIcons.userCircle, 'Credencial', HomePage()),
       _Route(FontAwesomeIcons.userNinja, 'Instructor', IntructorPage()),
+      _Route(FontAwesomeIcons.userFriends, 'Contactos', ContactsPage()),
       _Route(FontAwesomeIcons.userLock, 'Cambiar Contraseña', CambiarPasswordPage()),
   ];
 

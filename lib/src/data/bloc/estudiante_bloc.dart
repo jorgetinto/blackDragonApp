@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:black_dragon_app/src/data/models/estudiante_model.dart';
 import 'package:black_dragon_app/src/data/providers/estudiante_provider.dart';
-import 'package:black_dragon_app/src/models/estudiante_model.dart';
 
 import 'package:rxdart/rxdart.dart';
 import 'dart:async';
@@ -18,8 +18,14 @@ class EstudianteBloc {
     _estudiantesController.add(des);    
   }
 
+  void crearEstudianteBase() async {
+    final des = await _estudianteProvider.crearEstudianteBase();
+    _estudiantesController.add(des);    
+  }
+
   void editarProducto(EstudianteModel estudiante) async {
-    await _estudianteProvider.editarEstudiante(estudiante);
+    final des = await _estudianteProvider.editarEstudiante(estudiante);
+    _estudiantesController.add(des);    
   }
 
   Future<String> subirFoto(File foto) async {

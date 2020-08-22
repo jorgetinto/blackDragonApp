@@ -33,6 +33,15 @@ class PreferenciasUsuario {
   set uid( String value ) {
     _prefs.setString('uid', value);
   }
+
+  // GET y SET del uid
+  get uidInstructor {
+    return _prefs.getString('uidInstructor') ?? '';
+  }
+
+  set uidInstructor( String value ) {
+    _prefs.setString('uidInstructor', value);
+  }
   
 
   // GET y SET de la última página

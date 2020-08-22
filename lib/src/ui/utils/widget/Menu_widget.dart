@@ -1,9 +1,9 @@
 
 import 'package:black_dragon_app/src/data/bloc/provider_bloc.dart';
-import 'package:black_dragon_app/src/models/estudiante_model.dart';
-import 'package:black_dragon_app/src/pages/authenticate/login_page.dart';
-import 'package:black_dragon_app/src/utils/routes/routes.dart';
-import 'package:black_dragon_app/src/utils/utils.dart' as utils;
+import 'package:black_dragon_app/src/data/models/estudiante_model.dart';
+import 'package:black_dragon_app/src/ui/pages/authenticate/login_page.dart';
+import 'package:black_dragon_app/src/ui/utils/routes/routes.dart';
+import 'package:black_dragon_app/src/ui/utils/utils.dart' as utils;
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

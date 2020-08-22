@@ -1,4 +1,4 @@
-import 'package:black_dragon_app/src/utils/preferencias_usuario/preferenciasUsuario.dart';
+import 'package:black_dragon_app/src/data/preferencias_usuario/preferenciasUsuario.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';

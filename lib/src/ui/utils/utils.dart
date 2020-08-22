@@ -1,5 +1,5 @@
-import 'package:black_dragon_app/src/models/estudiante_model.dart';
-import 'package:black_dragon_app/src/pages/editarEstudiante_page.dart';
+import 'package:black_dragon_app/src/data/models/estudiante_model.dart';
+import 'package:black_dragon_app/src/ui/pages/editarEstudiante_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -80,7 +80,7 @@ import 'package:url_launcher/url_launcher.dart';
     );
   }
 
-  Column _iconoEditar(bool tipoFoto, BuildContext context, AsyncSnapshot<EstudianteModel> snapshot) {
+  Widget _iconoEditar(bool tipoFoto, BuildContext context, AsyncSnapshot<EstudianteModel> snapshot) {
     return (!tipoFoto) ? Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [ 

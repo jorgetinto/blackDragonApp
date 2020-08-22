@@ -1,8 +1,8 @@
 import 'package:black_dragon_app/src/data/bloc/changePassword_bloc.dart';
 import 'package:black_dragon_app/src/data/bloc/provider_bloc.dart';
-import 'package:black_dragon_app/src/pages/home_page.dart';
-import 'package:black_dragon_app/src/utils/routes/routes.dart';
-import 'package:black_dragon_app/src/utils/utils.dart';
+import 'package:black_dragon_app/src/ui/pages/home_page.dart';
+import 'package:black_dragon_app/src/ui/utils/routes/routes.dart';
+import 'package:black_dragon_app/src/ui/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class CambiarPasswordPage extends StatelessWidget {
@@ -26,7 +26,6 @@ class CambiarPasswordPage extends StatelessWidget {
       ),                        
     );
   }
-  
 
   Widget _loginForm(BuildContext context) {
     final bloc = ProviderBloc.cambiarPassBloc(context);
@@ -149,7 +148,6 @@ class CambiarPasswordPage extends StatelessWidget {
       showToast(context,info['mensaje']);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

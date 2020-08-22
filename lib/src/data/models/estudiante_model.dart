@@ -29,7 +29,7 @@ class EstudianteModel {
     String fono;
     Grado grado;
     Intructor intructor;
-    InfoMedica metodoPago;
+    MetodoPago metodoPago;
     InfoMedica infoMedica;
     String motivacion;
     String nombre;
@@ -45,7 +45,7 @@ class EstudianteModel {
         fono: json["fono"],
         grado: Grado.fromJson(json["grado"]),
         intructor: Intructor.fromJson(json["intructor"]),
-        metodoPago: InfoMedica.fromJson(json["metodoPago"]),
+        metodoPago: MetodoPago.fromJson(json["metodoPago"]),
         infoMedica: InfoMedica.fromJson(json["infoMedica"]),
         motivacion: json["motivacion"],
         nombre: json["nombre"],
@@ -152,38 +152,42 @@ class InfoMedica {
     };
 }
 
+class MetodoPago {
+    MetodoPago({
+        this.nombre,
+    });
+
+    String nombre;
+
+    factory MetodoPago.fromJson(Map<String, dynamic> json) => MetodoPago(
+        nombre: json["nombre"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "nombre": nombre,
+    };
+}
+
 class Intructor {
     Intructor({
         this.apellido,
-        this.grado,
         this.nombre,
-        this.rut,
-        this.correo,
-        this.phono,
+        this.id,
     });
 
     String apellido;
-    String grado;
     String nombre;
-    String rut;
-    String correo;
-    String phono;
+    String id;
 
     factory Intructor.fromJson(Map<String, dynamic> json) => Intructor(
         apellido: json["apellido"],
-        grado: json["grado"],
         nombre: json["nombre"],
-        rut: json["rut"],
-        correo: json["correo"],
-        phono: json["phono"],
+        id: json["id"],
     );
 
     Map<String, dynamic> toJson() => {
         "apellido": apellido,
-        "grado": grado,
         "nombre": nombre,
-        "rut": rut,
-        "correo": correo,
-        "phono": phono,
+        "id": id,
     };
 }

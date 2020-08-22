@@ -2,8 +2,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:black_dragon_app/src/models/estudiante_model.dart';
-import 'package:black_dragon_app/src/utils/preferencias_usuario/preferenciasUsuario.dart';
+import 'package:black_dragon_app/src/data/models/estudiante_model.dart';
+import 'package:black_dragon_app/src/data/preferencias_usuario/preferenciasUsuario.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:mime_type/mime_type.dart';
@@ -18,16 +18,66 @@ class EstudiantesProvider {
   Future<EstudianteModel>  buscarEstudiante()  async {
     final url = '$_url/estudiante/${_prefs.uid}.json?auth=${_prefs.token}';
     final resp = await http.get(url);
-    final prodTemp = estudianteModelFromJson(resp.body.toString());
-    return prodTemp;
+    final respModel = estudianteModelFromJson(resp.body.toString());
+    _prefs.uidInstructor   = respModel.intructor.id;
+    return respModel;
   } 
 
-  Future<bool> editarEstudiante(EstudianteModel estudiante) async {
+  Future<EstudianteModel> crearEstudianteBase() async {
+
+    InfoMedica infoMedica = new InfoMedica();
+    infoMedica.nombre = "Sin información";
+
+    MetodoPago metodoPago = new MetodoPago();
+    metodoPago.nombre ="efectivo";
+
+    Intructor intructor = new Intructor();
+    intructor.apellido = "Villalobos";
+    intructor.nombre = "Rodrigo";
+    intructor.id ="XnhjiYXJx06mrQg05MknMQ";
+
+    Grado grado = new Grado();
+    grado.fechaExamen = "01/01/1900";
+    grado.gradoActual = true;
+    grado.notaExamen = 0;
+    grado.color = "Blanco";
+    grado.nombre = "10° Gup";
+
+    Dojang dojang = new Dojang();
+    dojang.ciudad = "-";
+    dojang.direccion = "-";
+    dojang.escuela = "-";
+    dojang.instructor = "-";
+    dojang.sede = "-";
+
+    EstudianteModel estudiante = new EstudianteModel();
+    estudiante.apellidos = "-";
+    estudiante.correo = "-";
+    estudiante.dojang = dojang;
+    estudiante.fechaNacimiento = "-";
+    estudiante.fono = "-";
+    estudiante.grado = grado;
+    estudiante.intructor = intructor;
+    estudiante.metodoPago = metodoPago;
+    estudiante.infoMedica = infoMedica;
+    estudiante.motivacion = "Ingrese una motivación por la cual entrena";
+    estudiante.nombre = "-";
+    estudiante.ranking = 0;
+    estudiante.rut = "-";
+    estudiante.imagen = "-";
+    
+    
+    final url = '$_url/estudiante/${_prefs.uid}.json?auth=${_prefs.token}';
+    final resp = await http.post(url, body: estudianteModelToJson(estudiante));
+    final respModel = estudianteModelFromJson(resp.body.toString());
+    return respModel;
+  }
+
+  Future<EstudianteModel> editarEstudiante(EstudianteModel estudiante) async {
     final url = '$_url/estudiante/${_prefs.uid}.json?auth=${_prefs.token}';
     final resp = await http.put(url, body: estudianteModelToJson(estudiante));
-    final decodedData = json.decode(resp.body);
-    print(decodedData);
-    return true;
+    final respModel = estudianteModelFromJson(resp.body.toString());
+    return respModel;
   }
 
   Future<String> subirImagen(File imagen ) async {

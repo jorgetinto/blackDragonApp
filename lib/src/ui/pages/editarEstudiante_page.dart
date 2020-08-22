@@ -1,11 +1,12 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:black_dragon_app/src/data/bloc/estudiante_bloc.dart';
 import 'package:black_dragon_app/src/data/bloc/provider_bloc.dart';
-import 'package:black_dragon_app/src/models/estudiante_model.dart';
-import 'package:black_dragon_app/src/pages/home_page.dart';
-import 'package:black_dragon_app/src/utils/routes/routes.dart';
-import 'package:black_dragon_app/src/utils/widget/RutHelper_widget.dart';
+import 'package:black_dragon_app/src/data/models/estudiante_model.dart';
+import 'package:black_dragon_app/src/ui/pages/home_page.dart';
+import 'package:black_dragon_app/src/ui/utils/routes/routes.dart';
+import 'package:black_dragon_app/src/ui/utils/widget/RutHelper_widget.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -54,6 +55,7 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
                   _inputApellido(),
                   _inputRut(),
                   _inputFechaNacimiento(),
+                  _inputMetodoPago(),
                   _inputMotivacion(),
                   _inputInformacionMedica(),
                   _crearBoton(),
@@ -72,7 +74,7 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
         icon: Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () => Navigator.of(context).pop(),
       ),
-      title: Text('Editar Información'),
+      title: Text('Editar Perfil'),
       backgroundColor: Colors.black,
       actions: <Widget>[
         IconButton(
@@ -115,6 +117,24 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
       onSaved: (value) => estudianteModel.apellidos = value,
       validator: (value){
         if (value == null) {
+          return 'Campo requerido';
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+    Widget _inputMetodoPago() {
+    return TextFormField(
+      initialValue: estudianteModel.metodoPago.nombre,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: 'Método de pago'
+      ),
+      onSaved: (value) => estudianteModel.metodoPago.nombre = value,
+      validator: (value){
+        if (value.isEmpty || value == null) {
           return 'Campo requerido';
         } else {
           return null;
@@ -240,7 +260,7 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0)
       ),
-      color: Colors.deepPurple,
+      color: Colors.orangeAccent,
       textColor: Colors.white,
       label: Text('Guardar'),
       icon: Icon(Icons.save),
@@ -287,10 +307,12 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
             estudianteModel.imagen = await estudianteBloc.subirFoto(foto);
         }   
 
-        estudianteBloc.editarProducto(estudianteModel);
+        estudianteBloc.editarProducto(estudianteModel);        
 
-        setState(() {
-          Navigator.push(context, SlideRightRoute(widget: HomePage()));
+        Timer(Duration(milliseconds: 800), () {
+            setState(() {
+              Navigator.push(context, SlideRightRoute(widget: HomePage()));
+            });
         });
      }
   }
