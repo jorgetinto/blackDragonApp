@@ -1,6 +1,5 @@
 import 'package:black_dragon_app/src/data/bloc/login_bloc.dart';
 import 'package:black_dragon_app/src/data/bloc/provider_bloc.dart';
-import 'package:black_dragon_app/src/ui/pages/authenticate/register_page.dart';
 import 'package:black_dragon_app/src/ui/pages/home_page.dart';
 import 'package:black_dragon_app/src/ui/utils/routes/routes.dart';
 import 'package:black_dragon_app/src/ui/utils/utils.dart';
@@ -16,6 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   Widget _crearFondo(BuildContext context) {
@@ -79,18 +79,18 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
 
-          FlatButton(
-            onPressed: () => Navigator.pushReplacement(context, SlideRightSinOpacidadRoute(widget: RegisterPage()) ),
-            child: Text('Crear cuenta', 
-                                        style: TextStyle(
-                                        decoration:
-                                            TextDecoration.underline,
-                                        height: 1.5,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Roboto-Regular',
-                                      ),            
-            )),
+          // FlatButton(
+          //   onPressed: () => Navigator.pushReplacement(context, SlideRightSinOpacidadRoute(widget: RegisterPage()) ),
+          //   child: Text('Crear cuenta', 
+          //                               style: TextStyle(
+          //                               decoration:
+          //                                   TextDecoration.underline,
+          //                               height: 1.5,
+          //                               fontSize: 15,
+          //                               fontWeight: FontWeight.bold,
+          //                               fontFamily: 'Roboto-Regular',
+          //                             ),            
+          //   )),
           SizedBox(height: 100.0),
         ],
       ),

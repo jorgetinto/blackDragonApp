@@ -1,16 +1,18 @@
+import 'package:black_dragon_app/src/data/bloc/contactos_bloc.dart';
 import 'package:black_dragon_app/src/data/bloc/provider_bloc.dart';
-import 'package:black_dragon_app/src/data/models/Instructor_model.dart';
+import 'package:black_dragon_app/src/data/models/contactos_model.dart';
+import 'package:black_dragon_app/src/data/models/estudiante_model.dart';
 import 'package:black_dragon_app/src/ui/utils/utils.dart';
 import 'package:black_dragon_app/src/ui/utils/widget/Menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
-class IntructorPage extends StatelessWidget {
+class ContactoPage extends StatelessWidget {
 
-  Widget _header(AsyncSnapshot<InstructorModel> snapshot){
+  Widget _header(AsyncSnapshot<EstudianteModel> snapshot){
 
-  return Row(
+    return Row(
     children: [
         SizedBox(width: 20.0,),
 
@@ -29,15 +31,15 @@ class IntructorPage extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-                      Text("${snapshot.data.nombre} ${snapshot.data.apellido}", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
+                      Text("${snapshot.data.nombre} ${snapshot.data.apellidos}", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),),
                       SizedBox(height: 5.0,),
-                      Text("Cinturón Negro - ${snapshot.data.grado}", style: TextStyle(fontSize: 15.0),),
+                      Text("Cinturón - ${snapshot.data.grado.color}", style: TextStyle(fontSize: 15.0),),
                       SizedBox(height: 5.0,),
                       Row(
                         children: [
                           FaIcon(FontAwesomeIcons.map, size: 10.0, color: Colors.black54,),
                           SizedBox(height: 10.0,),
-                          Text(" Sede Central", style: TextStyle(color: Colors.black54)),
+                          Text(" Sede ${snapshot.data.dojang.sede}", style: TextStyle(color: Colors.black54)),
                         ],
                       )
                     ],
@@ -46,7 +48,7 @@ class IntructorPage extends StatelessWidget {
     );
   }
 
-  Widget _crearAcciones(AsyncSnapshot<InstructorModel> snapshot) {
+  Widget _crearAcciones(AsyncSnapshot<EstudianteModel> snapshot) {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -76,8 +78,9 @@ class IntructorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final instructorBloc = ProviderBloc.instructorBloc(context);
-    instructorBloc.buscarInstructor();
+    final estudianteBloc = ProviderBloc.estudianteBloc(context);
+    final ContactosModel contactosModel = ModalRoute.of(context).settings.arguments;
+    estudianteBloc.buscarEstudiantebyId(contactosModel.id);
 
     Color color1 = Color(0xfffbb034);           
     Color color2 = Color(0xffffdd00);
@@ -88,15 +91,15 @@ class IntructorPage extends StatelessWidget {
               icon: Icon(Icons.arrow_back, color: Colors.white),              
               onPressed: () => Navigator.of(context).pop(),
             ), 
-            title: Text("Instructor"),
+            title: Text("Contacto"),
             backgroundColor: Colors.black,
             centerTitle: true,
           ),
           drawer: MenuPrincipal(),
           body: SingleChildScrollView(
             
-            child: StreamBuilder<InstructorModel>(
-              stream: instructorBloc.instructorStream,
+            child: StreamBuilder<EstudianteModel>(
+              stream: estudianteBloc.estudianteByIdStream,
               builder: (context, snapshot) {
                  if (snapshot.hasData) {
 
@@ -138,7 +141,7 @@ class IntructorPage extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(height: 30,),    
-                                      buildTitle('Instructor'),
+                                      buildTitle('Contacto'),
                                       _header(snapshot), 
                                       division(),    
                                       _crearAcciones(snapshot)     

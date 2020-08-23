@@ -17,6 +17,11 @@ class ContactosBloc {
     _contactosController.sink.add(des);    
   }
 
+  void editarContacto(ContactosModel contacto) async {
+    await _contactosProvider.editarContacto(contacto);
+    this.buscarContactos();
+  }
+
    dispose() {
     _contactosController?.close();
   }

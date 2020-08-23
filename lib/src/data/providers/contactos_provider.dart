@@ -29,4 +29,11 @@ class ContactosProvider {
     
     return contactos;
   } 
+
+  Future<ContactosModel> editarContacto(ContactosModel contacto) async {
+    final url = '$_url/contactos/${_prefs.uid}.json?auth=${_prefs.token}';
+    final resp = await http.put(url, body: contactosModelToJson(contacto));
+    final respModel = contactosModelFromJson(resp.body.toString());
+    return respModel;
+  }
 }

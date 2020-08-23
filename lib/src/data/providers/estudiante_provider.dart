@@ -23,6 +23,13 @@ class EstudiantesProvider {
     return respModel;
   } 
 
+  Future<EstudianteModel>  buscarEstudiantebyId(String uid)  async {
+    final url = '$_url/estudiante/$uid.json?auth=${_prefs.token}';
+    final resp = await http.get(url);
+    final respModel = estudianteModelFromJson(resp.body.toString());
+    return respModel;
+  } 
+
   Future<EstudianteModel> crearEstudianteBase() async {
 
     InfoMedica infoMedica = new InfoMedica();

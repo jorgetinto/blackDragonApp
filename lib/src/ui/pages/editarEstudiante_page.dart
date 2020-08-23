@@ -55,6 +55,7 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
                   _inputApellido(),
                   _inputRut(),
                   _inputFechaNacimiento(),
+                  _inputFono(),
                   _inputMetodoPago(),
                   _inputMotivacion(),
                   _inputInformacionMedica(),
@@ -125,7 +126,25 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
     );
   }
 
-    Widget _inputMetodoPago() {
+  Widget _inputFono() {
+    return TextFormField(
+      initialValue: estudianteModel.fono,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        labelText: 'Teléfono'
+      ),
+      onSaved: (value) => estudianteModel.fono = value,
+      validator: (value){
+        if (value == null) {
+          return 'Campo requerido';
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  Widget _inputMetodoPago() {
     return TextFormField(
       initialValue: estudianteModel.metodoPago.nombre,
       textCapitalization: TextCapitalization.sentences,
@@ -307,7 +326,7 @@ class _EditarEstudiantePageState extends State<EditarEstudiantePage> {
             estudianteModel.imagen = await estudianteBloc.subirFoto(foto);
         }   
 
-        estudianteBloc.editarProducto(estudianteModel);        
+        estudianteBloc.editarEstudiante(estudianteModel);        
 
         Timer(Duration(milliseconds: 800), () {
             setState(() {
